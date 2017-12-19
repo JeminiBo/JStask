@@ -1,4 +1,6 @@
 function Rule() {
+    this.check = false;
+
 
 
 };
@@ -9,53 +11,64 @@ Rule.prototype.isRequired = function() {
 Rule.prototype.maxLength = function() {
 
     if (this.length <= 10)
-        console.log(true);
+        this.check = true;
     else
-        console.log(false);
+        this.check = false;
+
+    console.log(this.check);
 
     return this;
 }
 Rule.prototype.minLength = function() {
 
     if (this.length >= 4)
-        console.log(true);
+        this.check = true;
     else
-        console.log(false);
+        this.check = false;
+    console.log(this.check);
 
     return this;
 }
 Rule.prototype.max = function() {
 
     if (this.value <= 110)
-        console.log(true);
+        this.check = true;
     else
-        console.log(false);
+        this.check = false;
+
+    console.log(this.check);
 
     return this;
 }
 Rule.prototype.min = function() {
 
     if (this.value >= 16)
-        console.log(true);
+        this.check = true;
     else
-        console.log(false);
+        this.check = false;
+
+    console.log(this.check);
     return this;
 }
 Rule.prototype.isEmail = function() {
 
     var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFormat.test(this.value))
-        console.log(true);
+        this.check = true;
     else
-        console.log(false);
+        this.check = false;
+
+    console.log(this.check);
 
     return this;
 }
 Rule.prototype.isInt = function() {
     if (isNaN(this.value) == true)
-        console.log(false);
+        this.check = false;
     else
-        console.log(true);
+        this.check = true;
+
+    console.log(this.check);
 
     return this;
 }
@@ -66,14 +79,41 @@ function Validator(user) {
     this.length = user.name.length;
     this.value = user.name;
 
+
+
+
+
 }
 
 Validator.prototype = Object.create(Rule.prototype);
+
+
 
 var user = {
     name: "Pas",
     password: 123456,
     email: "joiker@tut.by"
-}
+};
 
-var Name = new Validator(user).maxLength().minLength();
+var Name = new Validator(user).minLength().maxLength();
+
+
+/*
+var promise = new Promise(function(resolve, reject) {
+        if (this.check)
+            resolve("resolved");
+        else
+            reject("rejected");
+    });
+    promise
+        .then(
+            result => {
+                // первая функция-обработчик - запустится при вызове resolve
+                console.log("Fulfilled: " + this.check); // result - аргумент resolve
+            },
+            error => {
+                // вторая функция - запустится при вызове reject
+                console.log("Rejected: " + this.check); // error - аргумент reject
+            }
+        );
+*/
