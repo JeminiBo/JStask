@@ -1,14 +1,13 @@
 function Rule() {
     this.check = false;
 
-
-
 };
-Rule.prototype.isRequired = function() {
+
+Rule.prototype.isRequired = function () {
 
     return this;
 }
-Rule.prototype.maxLength = function() {
+Rule.prototype.maxLength = function () {
 
     if (this.length <= 10)
         this.check = true;
@@ -19,7 +18,7 @@ Rule.prototype.maxLength = function() {
 
     return this;
 }
-Rule.prototype.minLength = function() {
+Rule.prototype.minLength = function () {
 
     if (this.length >= 4)
         this.check = true;
@@ -29,7 +28,7 @@ Rule.prototype.minLength = function() {
 
     return this;
 }
-Rule.prototype.max = function() {
+Rule.prototype.max = function () {
 
     if (this.value <= 110)
         this.check = true;
@@ -40,7 +39,7 @@ Rule.prototype.max = function() {
 
     return this;
 }
-Rule.prototype.min = function() {
+Rule.prototype.min = function () {
 
     if (this.value >= 16)
         this.check = true;
@@ -50,7 +49,7 @@ Rule.prototype.min = function() {
     console.log(this.check);
     return this;
 }
-Rule.prototype.isEmail = function() {
+Rule.prototype.isEmail = function () {
 
     var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFormat.test(this.value))
@@ -62,7 +61,7 @@ Rule.prototype.isEmail = function() {
 
     return this;
 }
-Rule.prototype.isInt = function() {
+Rule.prototype.isInt = function () {
     if (isNaN(this.value) == true)
         this.check = false;
     else
@@ -117,3 +116,7 @@ var promise = new Promise(function(resolve, reject) {
             }
         );
 */
+
+// Попытаться сделать this.check массивом
+// var rules = { name: new Rule().isRequired().maxLength(30) }
+// Var Rules=new Rule();

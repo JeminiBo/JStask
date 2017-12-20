@@ -1,12 +1,24 @@
-class Rule {
+var promise = new Promise(function(resolve, reject) {
+    if (this.check == true)
+        resolve();
+    else
+        reject();
+});
 
+
+
+
+
+class Rule {
 
     constructor(user) {
 
         this.value = user.name;
         this.length = this.value.length;
         this.check = false;
+
     }
+
     isRequired() {
 
         return this;
@@ -15,11 +27,14 @@ class Rule {
 
         if (this.length <= 10)
             this.check = true;
+
         else
             this.check = false;
+        promise
+            .then(result => console.log("Fulfilled: " + this.check))
+            .catch(error => console.log("Rejected: " + this.check));
 
         console.log(this.check);
-
         return this;
     }
     minLength() {
@@ -28,6 +43,11 @@ class Rule {
             this.check = true;
         else
             this.check = false;
+
+        promise
+            .then(result => console.log("Fulfilled: " + this.check))
+            .catch(error => console.log("Rejected: " + this.check));
+
         console.log(this.check);
 
         return this;
@@ -82,6 +102,7 @@ class Rule {
 
 class Validator extends Rule {
 
+
 }
 
 
@@ -89,7 +110,7 @@ class Validator extends Rule {
 
 
 var user = {
-    name: "Pas",
+    name: "Pass",
     password: 123456,
     email: "joiker@tut.by"
 };
