@@ -1,137 +1,93 @@
-var promise = new Promise(function(resolve, reject) {
-    if (this.check == true)
-        resolve();
-    else
-        reject();
-});
-
-
-
-
-
-class Rule {
-
-    constructor(user) {
-
-        this.value = user.name;
-        this.length = this.value.length;
-        this.check = false;
-
-    }
-
-    isRequired() {
-
-        return this;
-    }
-    maxLength() {
-
-        if (this.length <= 10)
-            this.check = true;
-
-        else
-            this.check = false;
-        promise
-            .then(result => console.log("Fulfilled: " + this.check))
-            .catch(error => console.log("Rejected: " + this.check));
-
-        console.log(this.check);
-        return this;
-    }
-    minLength() {
-
-        if (this.length >= 4)
-            this.check = true;
-        else
-            this.check = false;
-
-        promise
-            .then(result => console.log("Fulfilled: " + this.check))
-            .catch(error => console.log("Rejected: " + this.check));
-
-        console.log(this.check);
-
-        return this;
-    }
-    max() {
-
-        if (this.value <= 110)
-            this.check = true;
-        else
-            this.check = false;
-
-        console.log(this.check);
-
-        return this;
-    }
-    min() {
-
-        if (this.value >= 16)
-            this.check = true;
-        else
-            this.check = false;
-
-        console.log(this.check);
-        return this;
-    }
-    isEmail() {
-
-        var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (emailFormat.test(this.value))
-            this.check = true;
-        else
-            this.check = false;
-
-        console.log(this.check);
-
-        return this;
-    }
-    isInt() {
-        if (isNaN(this.value) == true)
-            this.check = false;
-        else
-            this.check = true;
-
-        console.log(this.check);
-
-        return this;
-    }
-
+function Rule() {
+    this.checkName = true;
+    this.checkPassword = true;
+    this.checkEmail = true;
+    this.name = user.name;
+    this.email = user.email;
+    this.password = user.password;
+    this.length = user.name.length;
 };
 
+Rule.prototype.isRequired = function () {
 
-
-class Validator extends Rule {
-
-
+    return this;
 }
+Rule.prototype.maxLength = function () {
+
+    if (this.length <= 10 && this.checkName == true)
+        this.checkName = true;
+    else
+        this.checkName = false;
+
+    console.log(this.checkName);
+
+    return this;
+}
+Rule.prototype.minLength = function () {
+
+    if (this.length >= 4 && this.checkName == true)
+        this.checkName = true;
+    else
+        this.checkName = false;
+
+    console.log(this.checkName);
+
+    return this;
+}
+Rule.prototype.max = function () {
+
+    if (this.value <= 110)
+        this.check = true;
+    else
+        this.check = false;
+
+    console.log(this.check);
+
+    return this;
+}
+Rule.prototype.min = function () {
+
+    if (this.value >= 16)
+        this.check = true;
+    else
+        this.check = false;
+
+    console.log(this.check);
+    return this;
+}
+Rule.prototype.isEmail = function () {
+
+    var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+    if (emailFormat.test(this.email))
+        this.checkEmail = true;
+    else
+        this.checkEmail = false;
 
 
+    console.log(this.checkEmail);
+
+    return this;
+}
+Rule.prototype.isInt = function () {
+    if (isNaN(this.password) == true)
+        this.checkPassword = false;
+
+    else
+        this.checkPassword = true;
 
 
+    console.log(this.checkPassword);
 
+    return this;
+}
 var user = {
-    name: "Pass",
+    name: "Paw",
     password: 123456,
     email: "joiker@tut.by"
 };
 
-var Name = new Validator(user).minLength().maxLength();
-/*
-var promise = new Promise(function(resolve, reject) {
-        if (this.check)
-            resolve("resolved");
-        else
-            reject("rejected");
-    });
-    promise
-        .then(
-            result => {
-                // первая функция-обработчик - запустится при вызове resolve
-                console.log("Fulfilled: " + this.check); // result - аргумент resolve
-            },
-            error => {
-                // вторая функция - запустится при вызове reject
-                console.log("Rejected: " + this.check); // error - аргумент reject
-            }
-        );
-*/
+var rules = {
+    name: new Rule(user.name).minLength().maxLength(),
+    password: new Rule(user.password).isInt(),
+    email: new Rule(user.email).isEmail()
+}
