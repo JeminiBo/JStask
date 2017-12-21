@@ -3,6 +3,8 @@ function Validator(value) {
 
     this.value = value;
     this.check = true;
+    this.errorMessage = [];
+    this.i = 0;
 }
 
 
@@ -18,6 +20,8 @@ Validator.prototype.maxLength = function (maxValue) {
     }
     else {
         this.check = false;
+        this.errorMessage[this.i] = "Максимальное количество символов " + maxValue;
+        this.i++;
     }
 
     console.log(this.check);
@@ -31,6 +35,8 @@ Validator.prototype.minLength = function (minValue) {
     }
     else {
         this.check = false;
+        this.errorMessage[this.i] = "Минимальное количество сиволов " + minValue;
+        this.i++;
     }
 
     console.log(this.check);
@@ -79,12 +85,16 @@ Validator.prototype.isEmail = function () {
     return this;
 }
 Validator.prototype.isInt = function () {
+    
     if (isNaN(this.value) == true) {
         this.check = false;
+        this.errorMessage[this.i] = "Значение должно быть целым";
+        this.i++;
     }
 
     else {
         this.check = true;
+       
     }
 
     console.log(this.check);
@@ -94,10 +104,15 @@ Validator.prototype.isInt = function () {
 
 Validator.prototype.isValid = function () {
 
+    for(var i = 0 ; i < this.errorMessage.length; i++)
+    {
+        console.log(this.errorMessage[i]);
+    }
 
 }
 
-valid = new Validator("pasha").minLength(5).maxLength(10).isInt();
+valid = new Validator("pas").minLength(5).maxLength(10).isInt();
+valid.isValid();
 
    
 
