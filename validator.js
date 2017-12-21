@@ -1,15 +1,17 @@
 function Rule() {
-    this.check = false;
+    this.check = true;
+    this.length = user.name.length;
+    this.name = user.name;
 
 };
 
-Rule.prototype.isRequired = function () {
+Rule.prototype.isRequired = function() {
 
     return this;
 }
-Rule.prototype.maxLength = function () {
+Rule.prototype.maxLength = function() {
 
-    if (this.length <= 10)
+    if (this.length <= 10 && this.check == true)
         this.check = true;
     else
         this.check = false;
@@ -18,9 +20,9 @@ Rule.prototype.maxLength = function () {
 
     return this;
 }
-Rule.prototype.minLength = function () {
+Rule.prototype.minLength = function() {
 
-    if (this.length >= 4)
+    if (this.length >= 4 && this.check == true)
         this.check = true;
     else
         this.check = false;
@@ -28,7 +30,7 @@ Rule.prototype.minLength = function () {
 
     return this;
 }
-Rule.prototype.max = function () {
+Rule.prototype.max = function() {
 
     if (this.value <= 110)
         this.check = true;
@@ -39,7 +41,7 @@ Rule.prototype.max = function () {
 
     return this;
 }
-Rule.prototype.min = function () {
+Rule.prototype.min = function() {
 
     if (this.value >= 16)
         this.check = true;
@@ -49,7 +51,7 @@ Rule.prototype.min = function () {
     console.log(this.check);
     return this;
 }
-Rule.prototype.isEmail = function () {
+Rule.prototype.isEmail = function() {
 
     var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFormat.test(this.value))
@@ -61,7 +63,7 @@ Rule.prototype.isEmail = function () {
 
     return this;
 }
-Rule.prototype.isInt = function () {
+Rule.prototype.isInt = function() {
     if (isNaN(this.value) == true)
         this.check = false;
     else
@@ -74,17 +76,22 @@ Rule.prototype.isInt = function () {
 
 
 
-function Validator(user) {
-    this.length = user.name.length;
-    this.value = user.name;
+function Validator(rule) {
+    this.check = rule.check;
+    var promise = new Promise(function(resolve, reject) {
+        if (this.check == true)
+            resolve("resolved");
+        else
+            reject("rejected");
+    });
 
-
+    promise
+        .then(function(result){return console.log("Fulfilled: " + result),rule.value} )
+        .catch(function(error){console.log("Rejected: " + error)});
 
 
 
 }
-
-Validator.prototype = Object.create(Rule.prototype);
 
 
 
@@ -94,7 +101,8 @@ var user = {
     email: "joiker@tut.by"
 };
 
-var Name = new Validator(user).minLength().maxLength();
+var rule = new Rule(user).minLength().maxLength();
+Validator(rule);
 
 
 /*
