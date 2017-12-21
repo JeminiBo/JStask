@@ -57,32 +57,32 @@ function Validator(value) {
     Validator.prototype.isEmail = function () {
     
         var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-        if (emailFormat.test(this.email))
-            this.checkEmail = true;
+        if (emailFormat.test(this.value))
+            this.check = true;
         else
-            this.checkEmail = false;
+            this.check = false;
     
     
-        console.log(this.checkEmail);
+        console.log(this.check);
     
         return this;
     }
     Validator.prototype.isInt = function () {
-        if (isNaN(this.password) == true)
-            this.checkPassword = false;
+        if (isNaN(this.value) == true)
+            this.check = false;
     
         else
-            this.checkPassword = true;
+            this.check = true;
     
     
-        console.log(this.checkPassword);
+        console.log(this.check);
     
         return this;
     }
 
  
 
-    valid = new Validator(3).minLength(5).maxLength(10)
+    valid = new Validator(3).minLength(5).maxLength(10).isInt()
 
    
 
