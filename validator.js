@@ -1,4 +1,5 @@
 
+
 function Validator(value) {
 
     this.value = value || "";
@@ -10,7 +11,7 @@ function Validator(value) {
 
 Validator.prototype.isRequired = function () {
 
-    if (this.value.length == null) {
+    if (this.value.length == "") {
         this.errorMessage[this.i] = "Значение отсутствует";
         this.i++;
     }
@@ -49,7 +50,7 @@ Validator.prototype.min = function (min) {
         this.errorMessage[this.i] = "Минимально возможное значение " + min;
         this.i++;
     }
-   
+
 
     return this;
 }
@@ -60,11 +61,11 @@ Validator.prototype.isEmail = function () {
         this.errorMessage[this.i] = "Неверный формат Email ";
         this.i++;
     }
-    
+
     return this;
 }
 Validator.prototype.isInt = function () {
-    
+
     if (isNaN(this.value) == true) {
         this.errorMessage[this.i] = "Значение должно быть целым";
         this.i++;
@@ -75,34 +76,30 @@ Validator.prototype.isInt = function () {
 
 Validator.prototype.isValid = function () {
 
-    
-    if (this.errorMessage.length == 0)
-    {
-        return(true);
-    }
-    else 
-    {
-       
 
-        for(var i = 0 ; i < this.errorMessage.length; i++)
-        {
+    if (this.errorMessage.length == 0) {
+        return true;
+    }
+    else {
+
+        for (var i = 0; i < this.errorMessage.length; i++) {
             console.log(this.errorMessage[i]);
         }
-        return(false);
+
+        return false;
     }
 
 }
 
-valid = new Validator("sds").minLength(5).maxLength(10).isInt();
+valid = new Validator("sfs").minLength(5).maxLength(10);
 valid.isValid();
 
-   
 
 
 
 
 
 
-// Попытаться сделать this.check массивом  +
-// var rules = { name: new Rule().isRequired().maxLength(30) }  +
-// Var Rules=new Rule(); ++
+
+
+
