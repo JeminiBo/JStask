@@ -91,7 +91,13 @@ Validator.prototype.isValid = function () {
 
 }
 
-valid = new Validator("sfs").minLength(5).maxLength(10);
+function sum(a, b) {
+    var res = a+b;
+
+    return res; // :) мы - мошенники!
+
+}
+var valid = new Validator("sfs").minLength(5).maxLength(10);
 valid.isValid();
 
 

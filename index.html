@@ -1,15 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
 
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Валидатор</title>
-  
+  <meta charset="utf-8">
+  <link rel="shortcut icon" type="image/png" href="jasmine/lib/jasmine-2.8.0/jasmine_favicon.png">
+  <link rel="stylesheet" type="text/css" href="jasmine/lib/jasmine-2.8.0/jasmine.css">
+  <script type="text/javascript" src="jasmine/lib/jasmine-2.8.0/jasmine.js"></script>
+  <script type="text/javascript" src="jasmine/lib/jasmine-2.8.0/jasmine-html.js"></script>
+  <script type="text/javascript" src="jasmine/lib/jasmine-2.8.0/boot.js"></script>
+  <script src="validator.js"></script>
+  <script src="tests.js"></script>
+  <script type="text/javascript">
+      var jasmineEnv = jasmine.getEnv();
+      var htmlReporter = new jasmine.HtmlReporter();
+      jasmineEnv.addReporter(htmlReporter);
+      jasmineEnv.specFilter = function(spec) {
+        return htmlReporter.specFilter(spec);
+      };
+
+      window.onload = function() {jasmineEnv.execute();};
+  </script>
 </head>
-
-<body>
-   
-    <script src="validator.js"></script>
-</body>
-
+<body></body>
 </html>
