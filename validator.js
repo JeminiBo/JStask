@@ -4,7 +4,7 @@ function Validator(value) {
 
     this.value = value || "";
     this.errorMessage = [];
-    this.i = 0;
+
 }
 
 
@@ -12,16 +12,16 @@ function Validator(value) {
 Validator.prototype.isRequired = function () {
 
     if (this.value.length == "") {
-        this.errorMessage[this.i] = "Значение отсутствует";
-        this.i++;
+        this.errorMessage.push("Значение отсутствует");
+
     }
     return this;
 }
 Validator.prototype.maxLength = function (maxValue) {
 
     if (this.value.length > maxValue) {
-        this.errorMessage[this.i] = "Максимальное количество символов " + maxValue;
-        this.i++;
+        this.errorMessage.push("Максимальное количество символов " + maxValue);
+
     }
 
     return this;
@@ -29,26 +29,30 @@ Validator.prototype.maxLength = function (maxValue) {
 Validator.prototype.minLength = function (minValue) {
 
     if (this.value.length < minValue) {
-        this.errorMessage[this.i] = "Минимальное количество сиволов " + minValue;
-        this.i++;
+        this.errorMessage.push("Минимальное количество сиволов " + minValue);
+
     }
 
     return this;
 }
 Validator.prototype.max = function (max) {
+    if (isNaN(Number(this.value)) == true) {
+        this.errorMessage.push("Значение должно быть числом " );
+    }
+    if (this.value >= max) {
+        this.errorMessage.push("Максимально возможное значение " + max);
 
-    if (this.value >= 110) {
-        this.errorMessage[this.i] = "Максимально возможное значение " + max;
-        this.i++;
     }
 
     return this;
 }
 Validator.prototype.min = function (min) {
+    if (isNaN(Number(this.value)) == true) {
+        this.errorMessage.push("Значение должно быть числом " );
+    }
+    if (this.value <= min) {
+        this.errorMessage.push("Минимально возможное значение " + min);
 
-    if (this.value <= 16) {
-        this.errorMessage[this.i] = "Минимально возможное значение " + min;
-        this.i++;
     }
 
 
@@ -58,8 +62,8 @@ Validator.prototype.isEmail = function () {
 
     var emailFormat = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
     if (emailFormat.test(this.value) == false) {
-        this.errorMessage[this.i] = "Неверный формат Email ";
-        this.i++;
+        this.errorMessage.push("Неверный формат Email ");
+
     }
 
     return this;
@@ -67,8 +71,8 @@ Validator.prototype.isEmail = function () {
 Validator.prototype.isInt = function () {
 
     if (isNaN(this.value) == true) {
-        this.errorMessage[this.i] = "Значение должно быть целым";
-        this.i++;
+        this.errorMessage.push("Значение должно быть целым");
+
     }
 
     return this;
@@ -82,21 +86,12 @@ Validator.prototype.isValid = function () {
     }
     else {
 
-        for (var i = 0; i < this.errorMessage.length; i++) {
-            console.log(this.errorMessage[i]);
-        }
-
         return false;
     }
 
 }
 
-function sum(a, b) {
-    var res = a+b;
 
-    return res; // :) мы - мошенники!
-
-}
 var valid = new Validator("sfs").minLength(5).maxLength(10);
 valid.isValid();
 
