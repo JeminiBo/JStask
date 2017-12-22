@@ -37,7 +37,7 @@ Validator.prototype.minLength = function (minValue) {
 }
 Validator.prototype.max = function (max) {
     if (isNaN(Number(this.value)) == true) {
-        this.errorMessage.push("Значение должно быть числом " );
+        this.errorMessage.push("Значение должно быть числом");
     }
     if (this.value >= max) {
         this.errorMessage.push("Максимально возможное значение " + max);
@@ -48,7 +48,7 @@ Validator.prototype.max = function (max) {
 }
 Validator.prototype.min = function (min) {
     if (isNaN(Number(this.value)) == true) {
-        this.errorMessage.push("Значение должно быть числом " );
+        this.errorMessage.push("Значение должно быть числом");
     }
     if (this.value <= min) {
         this.errorMessage.push("Минимально возможное значение " + min);
@@ -70,7 +70,11 @@ Validator.prototype.isEmail = function () {
 }
 Validator.prototype.isInt = function () {
 
-    if (isNaN(this.value) == true) {
+    if (isNaN(Number(this.value)) == true) {
+        this.errorMessage.push("Значение должно быть числом");
+    }
+
+    if (parseInt(this.value) != this.value) {
         this.errorMessage.push("Значение должно быть целым");
 
     }
